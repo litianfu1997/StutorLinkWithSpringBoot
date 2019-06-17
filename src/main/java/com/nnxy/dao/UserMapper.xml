@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nnxy.dao.UserMapper">
+
+    <!--插入用户-->
+    <insert id="insertUser" parameterType="user" >
+        insert into user(userCode, userName, password, birthday, professional, sex,userPhone,isNotBlocked)
+        values (#{userCode},#{userName},#{password},#{birthday},#{professional},#{sex},#{userPhone},#{isNotBlocked})
+    </insert>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="user">
+        delete from user where userId = #{userId}
+    </delete>
+
+
+    <!--修改用户-->
+    <update id="updateUser" parameterType="user">
+        update user
+        <set>
+            <if test="userName != null">
+                userName = #{userName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="userPhone != null">
+                userPhone = #{userPhone},
+            </if>
+            <if test="professional != null">
+                professional = #{professional},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            userId = userId
+        </set>
+        where userCode = #{userCode}
+    </update>
+
+    <!--通过id查询用户-->
+    <select id="selectUserById" parameterType="Integer" resultType="user" >
+        select  userCode, userName, password, birthday, professional, sex,userPhone,isNotBlocked
+        from user
+        where userId = #{userId}
+    </select>
+
+    <!--通过id查询用户-->
+    <select id="selectUserByUserCode" parameterType="String" resultType="user" >
+        select userCode, userName, password, birthday, professional, sex,userPhone,isNotBlocked
+        from user
+        where userCode = #{userCode}
+    </select>
+
+</mapper>
